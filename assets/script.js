@@ -19,8 +19,10 @@ var currentHour = moment().format("H");
 //  </div>
 // We create the work day grid. Default is 9AM-5PM.
 for (var i=9; i<17; i++) {
+
     // Create the row for the hour
     var hourRowEl = $("<div>").addClass("row time-block");
+
     // Create the hour block. For the last block of the day, a bottom border is added.
     var hourObj = moment().hour(i);
     var hourText = moment(hourObj).format("hA");    
@@ -29,6 +31,7 @@ for (var i=9; i<17; i++) {
     } else {
         var hourBlockEl = $("<div>").addClass("col-sm-1 hour").text(hourText);
     }
+
     // Create the event block. Color coding is added for past hours, the present hour, and future hours.
     if (i < currentHour) {
         highlightClass = "past";
@@ -38,14 +41,14 @@ for (var i=9; i<17; i++) {
     else {
         highlightClass = "future";
     }
-
     var eventBlockEl = $("<div>").addClass("col-sm-10 " + highlightClass);
 
     // Create the save button block
-    var saveBtnEl = $("<div>").addClass("col-sm-1 saveBtn");
+    var saveBtnEl = $("<div>").addClass("col-sm-1 saveBtn p-4").html('<i class="fas fa-save"></i>');
 
     // Append the columns to the parent row
     hourRowEl.append(hourBlockEl, eventBlockEl, saveBtnEl);
+
     // Append the parent row to the container on the page
     $(".container").append(hourRowEl);
 }
