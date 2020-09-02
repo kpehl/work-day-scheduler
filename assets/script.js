@@ -3,12 +3,28 @@ var currentDay = moment().format("dddd MMMM Do");
 
 var displayDay = function() {
     $("#currentDay").text(currentDay);
-}
+};
 
 // Create a moment object for the current hour
-var currentHour = moment().format("H");
+// var currentHour = moment().format("H");
+var currentHour = 10;
 
-var createSchedule = function() {
+// Initialize the events array
+var savedEvents = [];
+// Create a function to load events as needed
+var loadSavedEvents = function() {
+    savedEvents = JSON.parse(localStorage.getItem("events"));
+    $.each(savedEvents, function(index, savedEventItem) {
+        console.log("from loadSavedEvents: " + savedEventItem.time, savedEventItem.event);
+    });
+  
+    // if nothing in localStorage, initialize array to track events and times
+    if (!savedEvents) {
+      savedEvents = [];
+    }
+};
+
+
 // Create the work day grid
 // Within the container, each hour has the form
 //  <div class="row time-block">
@@ -46,7 +62,10 @@ for (var i=9; i<17; i++) {
     var eventBlockEl = $("<div>").addClass("col-sm-10 description eventBlock " + highlightClass);
 
     // Check for a saved event and populate the event block if there is one
+    loadSavedEvents();
     $.each(savedEvents, function(index, savedEventItem) {
+        console.log("in create grid: " + savedEvents)
+        console.log(savedEventItem.time, savedEventItem.event);
         if (savedEventItem.time == hourText) {
             eventBlockEl.text(savedEventItem.event)
         }
@@ -61,20 +80,8 @@ for (var i=9; i<17; i++) {
 
     // Append the parent row to the container on the page
     $(".container").append(hourRowEl);
-}
 };
 
-// Initialize the events array
-var savedEvents = [];
-// Create a function to load events as needed
-var loadEvents = function() {
-    savedEvents = JSON.parse(localStorage.getItem("events"));
-  
-    // if nothing in localStorage, initialize array to track events and times
-    if (!savedEvents) {
-      savedEvents = [];
-    }
-};
 
 // On clicking an hour block, the block converts to a text area, retaining any previously entered text and retaining color code
 $(".eventBlock").on("click", function() {
@@ -122,27 +129,24 @@ $(".saveBtn").on("click", function() {
         time: selectedHourStr,
         event: text
     };
-    events.push(eventObj);
+    savedEvents.push(eventObj);
     saveEvents();
 });
 
 
 // A function to save the daily events
 var saveEvents = function() {
-    localStorage.setItem("events", JSON.stringify(events));
+    localStorage.setItem("events", JSON.stringify(savedEvents));
   };
 
 // Display the current date
 displayDay();
 
-// Load any events from local storage
-loadEvents();
-
-// Create the schedule
-createSchedule();
+// Load saved events
+loadSavedEvents(); 
 
 // Run a timer to update the date (and later on the events and schedule) automatically every 30 minutes as long as the page is open 
 setInterval(function() {
     displayDay();
-    loadEvents();
   }, 1800000);
+
