@@ -6,8 +6,8 @@ var displayDay = function() {
 };
 
 // Create a moment object for the current hour
-// var currentHour = moment().format("H");
-var currentHour = 10;
+var currentHour = moment().format("H");
+// var currentHour = 10;
 
 // Initialize the events array
 var savedEvents = [];
@@ -105,6 +105,13 @@ $(".eventBlock").on("click", function() {
     $(this).replaceWith(textInput);
     textInput.trigger("focus");
   });
+
+// Hovering on the save button changes the save icon
+$(".saveBtn").hover(function(){
+    $(this).html('<i class="far fa-save"></i>');},
+    function() {$(this).html('<i class="fas fa-save"></i>');
+    },
+);
 
 // On clicking the save button, the block converts back
 $(".saveBtn").on("click", function() {
