@@ -14,9 +14,9 @@ var savedEvents = [];
 // Create a function to load events as needed
 var loadSavedEvents = function() {
     savedEvents = JSON.parse(localStorage.getItem("events"));
-    $.each(savedEvents, function(index, savedEventItem) {
-        console.log("from loadSavedEvents: " + savedEventItem.time, savedEventItem.event);
-    });
+    // $.each(savedEvents, function(index, savedEventItem) {
+    //     console.log("from loadSavedEvents: " + savedEventItem.time, savedEventItem.event);
+    // });
   
     // if nothing in localStorage, initialize array to track events and times
     if (!savedEvents) {
@@ -64,8 +64,8 @@ for (var i=9; i<17; i++) {
     // Check for a saved event and populate the event block if there is one
     loadSavedEvents();
     $.each(savedEvents, function(index, savedEventItem) {
-        console.log("in create grid: " + savedEvents)
-        console.log(savedEventItem.time, savedEventItem.event);
+        // console.log("in create grid: " + savedEvents)
+        // console.log(savedEventItem.time, savedEventItem.event);
         if (savedEventItem.time == hourText) {
             eventBlockEl.text(savedEventItem.event)
         }
@@ -108,7 +108,6 @@ $(".eventBlock").on("click", function() {
 
 // On clicking the save button, the block converts back
 $(".saveBtn").on("click", function() {
-    event.preventDefault();
     // get the text from the text area
     var text = $(this)
         .siblings(".description")
@@ -148,5 +147,6 @@ loadSavedEvents();
 // Run a timer to update the date (and later on the events and schedule) automatically every 30 minutes as long as the page is open 
 setInterval(function() {
     displayDay();
+    loadSavedEvents();
   }, 1800000);
 
