@@ -6,7 +6,7 @@ var displayDay = function() {
 };
 
 // Create a moment object for the current hour
-var currentHour = moment().format("H");
+var currentHour = parseInt(moment().format("H"));
 // var currentHour = 10;
 
 // Initialize the events array
@@ -73,7 +73,7 @@ for (var i=9; i<17; i++) {
 
 
     // Create the save button block
-    var saveBtnEl = $("<div>").addClass("col-sm-1 saveBtn p-4").html('<i class="fas fa-save"></i>');
+    var saveBtnEl = $("<div>").addClass("col-sm-1 saveBtn p-4").html('<i class="far fa-save"></i>');
 
     // Append the columns to the parent row
     hourRowEl.append(hourBlockEl, eventBlockEl, saveBtnEl);
@@ -91,13 +91,19 @@ $(".eventBlock").on("click", function() {
       .text()
       .trim();
     var selectedHourStr = $(this).siblings(".hour").text();
-    var selectedHourM = moment(selectedHourStr, ["hA"]).format("H");
+    var selectedHourM = parseInt(moment(selectedHourStr, ["hA"]).format("H"));
+    console.log(currentHour);
+    console.log(typeof(currentHour), console.log(typeof(selectedHourM)));
+    console.log(selectedHourStr, selectedHourM);
     if (selectedHourM < currentHour) {
+        console.log("past event")
         highlightClass = "past";
     } else if (selectedHourM == currentHour) {
+        console.log("present event");
         highlightClass = "present";
     }
     else {
+        console.log("future event");
         highlightClass = "future";
     }
     var textInput = $("<textarea>").addClass("col-sm-10 description " + highlightClass)
@@ -108,8 +114,8 @@ $(".eventBlock").on("click", function() {
 
 // Hovering on the save button changes the save icon
 $(".saveBtn").hover(function(){
-    $(this).html('<i class="far fa-save"></i>');},
-    function() {$(this).html('<i class="fas fa-save"></i>');
+    $(this).html('<i class="fas fa-save"></i>');},
+    function() {$(this).html('<i class="far fa-save"></i>');
     },
 );
 
