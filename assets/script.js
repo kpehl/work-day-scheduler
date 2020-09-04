@@ -45,9 +45,9 @@ for (var i=9; i<17; i++) {
     var hourObj = moment().hour(i);
     var hourText = moment(hourObj).format("hA");    
     if (i == 16) {
-        var hourBlockEl =  $("<div>").addClass("col-sm-1 hour").attr("style", "border-bottom: 1px dashed #000000").text(hourText);
+        var hourBlockEl =  $("<div>").addClass("col-2 col-md-1 hour").attr("style", "border-bottom: 1px dashed #000000").text(hourText);
     } else {
-        var hourBlockEl = $("<div>").addClass("col-sm-1 hour").text(hourText);
+        var hourBlockEl = $("<div>").addClass("col-2 col-md-1 hour").text(hourText);
     }
 
     // Create the event block. Color coding is added for past hours, the present hour, and future hours.
@@ -59,7 +59,7 @@ for (var i=9; i<17; i++) {
     else {
         highlightClass = "future";
     }
-    var eventBlockEl = $("<textarea>").addClass("col-sm-10 description eventBlock " + highlightClass);
+    var eventBlockEl = $("<textarea>").addClass("col-8 col-md-10 description eventBlock " + highlightClass);
 
     // Check for a saved event and populate the event block if there is one
     loadSavedEvents();
@@ -72,7 +72,7 @@ for (var i=9; i<17; i++) {
         });
 
     // Create the save button block
-    var saveBtnEl = $("<div>").addClass("col-sm-1 saveBtn p-4").html('<i class="far fa-save"></i>');
+    var saveBtnEl = $("<div>").addClass("col-2 col-md-1 saveBtn p-4").html('<i class="far fa-save"></i>');
 
     // Append the columns to the parent row
     hourRowEl.append(hourBlockEl, eventBlockEl, saveBtnEl);
@@ -124,8 +124,7 @@ displayDay();
 // Load saved events
 loadSavedEvents(); 
 
-// Run a timer to update the date (and later on the events and schedule) automatically every 30 minutes as long as the page is open 
+// Run a timer to refresh the page to automatically update the grid every 30 minutes as long as the page is open 
 setInterval(function() {
-    displayDay();
-    loadSavedEvents();
+    window.location(reload)
   }, 1800000);
