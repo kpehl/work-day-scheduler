@@ -7,12 +7,13 @@ This page provides a simple daily planner to create a schedule. When the user op
 This page is hosted at https:/ /kpehl.github.io/work-day-scheduler/
 
 ## Tools Used
-JavaScript
-jQuery/jQueryUI
-Bootstrap
-moment
-HTML
-CSS
+* JavaScript
+* jQuery/jQueryUI
+* Bootstrap
+* moment
+* HTML
+* CSS
 
 ## Screenshot
+![screenshot](./assets/workdayscheduler.png)
 
