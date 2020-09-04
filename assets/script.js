@@ -102,6 +102,12 @@ $(".saveBtn").on("click", function() {
         time: selectedHourStr,
         event: text
     };
+    // remove any previous entry for that hour
+    for (var i = 0; i < savedEvents.length; i++) {
+        if (savedEvents[i].time == selectedHourStr) {
+            savedEvents.splice(i, 1);
+        };
+    };
     savedEvents.push(eventObj);
     saveEvents();
 });
