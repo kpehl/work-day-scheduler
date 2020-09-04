@@ -88,8 +88,16 @@ $(".saveBtn").hover(function(){
     },
 );
 
+// Entering text without saving highlights the save button
+$(".description").keypress(function() {
+    console.log("entry made");
+    $(this).siblings(".saveBtn").css("background-color", "#f58700")
+});
+
 // On clicking the save button, the block converts back
 $(".saveBtn").on("click", function() {
+    // change the color back to the default blue
+    $(this).css("background-color", "#06AED5");
     // get the text from the text area
     var text = $(this)
         .siblings(".description")
