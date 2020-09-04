@@ -59,7 +59,7 @@ for (var i=9; i<17; i++) {
     else {
         highlightClass = "future";
     }
-    var eventBlockEl = $("<div>").addClass("col-sm-10 description eventBlock " + highlightClass);
+    var eventBlockEl = $("<textarea>").addClass("col-sm-10 description eventBlock " + highlightClass);
 
     // Check for a saved event and populate the event block if there is one
     loadSavedEvents();
@@ -71,7 +71,6 @@ for (var i=9; i<17; i++) {
         }
         });
 
-
     // Create the save button block
     var saveBtnEl = $("<div>").addClass("col-sm-1 saveBtn p-4").html('<i class="far fa-save"></i>');
 
@@ -81,36 +80,6 @@ for (var i=9; i<17; i++) {
     // Append the parent row to the container on the page
     $(".container").append(hourRowEl);
 };
-
-
-// On clicking an hour block, the block converts to a text area, retaining any previously entered text and retaining color code
-$(".eventBlock").on("click", function() {
-    event.preventDefault();
-    console.log("block clicked");
-    var text = $(this)
-      .text()
-      .trim();
-    var selectedHourStr = $(this).siblings(".hour").text();
-    var selectedHourM = parseInt(moment(selectedHourStr, ["hA"]).format("H"));
-    console.log(currentHour);
-    console.log(typeof(currentHour), console.log(typeof(selectedHourM)));
-    console.log(selectedHourStr, selectedHourM);
-    if (selectedHourM < currentHour) {
-        console.log("past event")
-        highlightClass = "past";
-    } else if (selectedHourM == currentHour) {
-        console.log("present event");
-        highlightClass = "present";
-    }
-    else {
-        console.log("future event");
-        highlightClass = "future";
-    }
-    var textInput = $("<textarea>").addClass("col-sm-10 description " + highlightClass)
-      .val(text);
-    $(this).replaceWith(textInput);
-    textInput.trigger("focus");
-  });
 
 // Hovering on the save button changes the save icon
 $(".saveBtn").hover(function(){
@@ -126,14 +95,6 @@ $(".saveBtn").on("click", function() {
         .siblings(".description")
         .val()
         .trim();
-    // recreate the original element
-    var eventDiv = $("<div>")
-        .addClass("col-sm-10 description eventBlock " + highlightClass)
-        .text(text);
-    // replace the textarea with the <div> element
-    $(this)
-        .siblings(".description")
-        .replaceWith(eventDiv);
     // get the selected event time
     var selectedHourStr = $(this).siblings(".hour").text();
     // create an object with the event to save
@@ -162,4 +123,3 @@ setInterval(function() {
     displayDay();
     loadSavedEvents();
   }, 1800000);
-

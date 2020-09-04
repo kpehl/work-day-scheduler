@@ -9,6 +9,7 @@ This page is hosted at https:/ /kpehl.github.io/work-day-scheduler/
 ## Tools Used
 JavaScript
 jQuery/jQueryUI
+Bootstrap
 moment
 HTML
 CSS
