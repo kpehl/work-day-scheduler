@@ -36,7 +36,7 @@ var loadSavedEvents = function() {
 //  <div class="col-sm-1 saveBtn"></div>
 //  </div>
 // We create the work day grid. Default is 9AM-5PM.
-for (var i=9; i<17; i++) {
+for (var i=9; i<18; i++) {
 
     // Create the row for the hour
     var hourRowEl = $("<div>").addClass("row time-block");
@@ -44,7 +44,7 @@ for (var i=9; i<17; i++) {
     // Create the hour block. For the last block of the day, a bottom border is added.
     var hourObj = moment().hour(i);
     var hourText = moment(hourObj).format("hA");    
-    if (i == 16) {
+    if (i == 17) {
         var hourBlockEl =  $("<div>").addClass("col-2 col-md-1 hour").attr("style", "border-bottom: 1px dashed #000000").text(hourText);
     } else {
         var hourBlockEl = $("<div>").addClass("col-2 col-md-1 hour").text(hourText);
